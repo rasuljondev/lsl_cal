@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'webview_screen.dart';
 
 class PasswordScreen extends StatefulWidget {
@@ -39,6 +40,12 @@ class _PasswordScreenState extends State<PasswordScreen> {
       backgroundColor: Colors.white,
       body: LayoutBuilder(
         builder: (context, constraints) {
+          // Calculate responsive animation size
+          double animationSize =
+              constraints.maxWidth * 0.8; // 30% of screen width
+          if (animationSize > 200) animationSize = 200; // Max size cap
+          if (animationSize < 80) animationSize = 80; // Min size cap
+
           return SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
@@ -49,7 +56,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Set 4-digit Exit Code',
+                        'LSL CALCULATOR',
                         style: TextStyle(
                           fontSize: 24.sp,
                           color: Colors.indigo,
@@ -57,6 +64,25 @@ class _PasswordScreenState extends State<PasswordScreen> {
                         ),
                       ),
                       SizedBox(height: 16.h),
+                      // Lottie animation above password boxes
+                      Lottie.asset(
+                        'assets/student_thumbs.json',
+                        width: animationSize.w,
+                        height: animationSize.h,
+                        fit: BoxFit.contain,
+                      ),
+                      SizedBox(height: 10.h),
+                      Text(
+                        'Enter 4-digit code to proceed',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: Colors.indigo,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ), // Space between animation and boxes
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: List.generate(4, (index) {

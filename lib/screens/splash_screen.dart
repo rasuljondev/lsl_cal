@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'password_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -27,22 +28,15 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Colors.white,
       body: LayoutBuilder(
         builder: (context, constraints) {
-          // Calculate responsive image size based on screen width
-          double imageSize = constraints.maxWidth * 0.6; // 60% of screen width
-          if (imageSize > 500) imageSize = 500; // Max size cap
-          if (imageSize < 200) imageSize = 200; // Min size cap
+          // Calculate responsive image and animation size based on screen width
+          double imageSize = constraints.maxWidth * 1; // 60% of screen width
 
           return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'assets/logo.png',
-                  width: imageSize.w,
-                  height: imageSize.h,
-                  fit: BoxFit.contain,
-                ),
-              ],
+            child: Image.asset(
+              'assets/logo.png',
+              width: imageSize.w,
+              height: imageSize.h,
+              fit: BoxFit.contain,
             ),
           );
         },

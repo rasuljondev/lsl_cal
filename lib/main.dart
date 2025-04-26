@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'screens/splash_screen.dart';
 
 void main() {
@@ -10,14 +11,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'LSL Calculator',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        useMaterial3: true, // Enable Material 3 for modern aesthetics
-      ),
-      debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+    // Initialize ScreenUtil for responsive design
+    return ScreenUtilInit(
+      designSize: const Size(
+        360,
+        640,
+      ), // Base design size (e.g., standard phone)
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          title: 'LSL Calculator',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            useMaterial3: true,
+            textTheme: TextTheme(
+              bodyMedium: TextStyle(fontSize: 16.sp), // Responsive text size
+            ),
+          ),
+          debugShowCheckedModeBanner: false,
+          home: const SplashScreen(),
+        );
+      },
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:io';
 
@@ -25,7 +26,7 @@ class _WebViewScreenState extends State<WebViewScreen> {
 
   Future<bool> _onWillPop() async {
     _promptExit();
-    return false; // prevent default back action
+    return false; // Prevent default back action
   }
 
   void _promptExit() {
@@ -35,16 +36,23 @@ class _WebViewScreenState extends State<WebViewScreen> {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Text('Enter Password to Exit'),
+            title: Text(
+              'Enter Password to Exit',
+              style: TextStyle(fontSize: 18.sp),
+            ),
             content: TextField(
               controller: controller,
               obscureText: true,
-              decoration: const InputDecoration(hintText: 'Password'),
+              decoration: InputDecoration(
+                hintText: 'Password',
+                hintStyle: TextStyle(fontSize: 14.sp),
+              ),
+              style: TextStyle(fontSize: 16.sp),
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('Cancel'),
+                child: Text('Cancel', style: TextStyle(fontSize: 14.sp)),
               ),
               TextButton(
                 onPressed: () {
@@ -55,11 +63,16 @@ class _WebViewScreenState extends State<WebViewScreen> {
                     });
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Incorrect password")),
+                      SnackBar(
+                        content: Text(
+                          "Incorrect password",
+                          style: TextStyle(fontSize: 14.sp),
+                        ),
+                      ),
                     );
                   }
                 },
-                child: const Text('Exit'),
+                child: Text('Exit', style: TextStyle(fontSize: 14.sp)),
               ),
             ],
           ),
@@ -76,10 +89,10 @@ class _WebViewScreenState extends State<WebViewScreen> {
             children: [
               WebViewWidget(controller: _controller),
               Positioned(
-                top: 10,
-                right: 10,
+                top: 10.h,
+                right: 10.w,
                 child: IconButton(
-                  icon: const Icon(Icons.exit_to_app, color: Colors.red),
+                  icon: Icon(Icons.exit_to_app, color: Colors.red, size: 30.sp),
                   onPressed: _promptExit,
                 ),
               ),

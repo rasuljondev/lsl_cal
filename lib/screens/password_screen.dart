@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'webview_screen.dart';
 
 class PasswordScreen extends StatefulWidget {
@@ -36,74 +37,93 @@ class _PasswordScreenState extends State<PasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Set 4-digit Exit Code',
-                style: TextStyle(fontSize: 24, color: Colors.indigo),
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: List.generate(4, (index) {
-                  return SizedBox(
-                    width: 50,
-                    child: TextField(
-                      controller: _controllers[index],
-                      maxLength: 1,
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        color: Colors.indigo,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      decoration: InputDecoration(
-                        counterText: '',
-                        filled: true,
-                        fillColor: Colors.white10,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsets.all(24.w),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Set 4-digit Exit Code',
+                        style: TextStyle(
+                          fontSize: 24.sp,
+                          color: Colors.indigo,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      onChanged: (value) {
-                        if (value.isNotEmpty) {
-                          FocusScope.of(context).nextFocus();
-                        }
-                      },
-                    ),
-                  );
-                }),
-              ),
-              if (_error != null) ...[
-                const SizedBox(height: 10),
-                Text(_error!, style: const TextStyle(color: Colors.red)),
-              ],
-              const SizedBox(height: 20),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.indigo,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 32,
-                    vertical: 16,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                      SizedBox(height: 16.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: List.generate(4, (index) {
+                          return SizedBox(
+                            width: 50.w,
+                            child: TextField(
+                              controller: _controllers[index],
+                              maxLength: 1,
+                              keyboardType: TextInputType.number,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 24.sp,
+                                color: Colors.indigo,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              decoration: InputDecoration(
+                                counterText: '',
+                                filled: true,
+                                fillColor: Colors.white10,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12.r),
+                                ),
+                              ),
+                              onChanged: (value) {
+                                if (value.isNotEmpty) {
+                                  FocusScope.of(context).nextFocus();
+                                }
+                              },
+                            ),
+                          );
+                        }),
+                      ),
+                      if (_error != null) ...[
+                        SizedBox(height: 10.h),
+                        Text(
+                          _error!,
+                          style: TextStyle(color: Colors.red, fontSize: 14.sp),
+                        ),
+                      ],
+                      SizedBox(height: 20.h),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.indigo,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 32.w,
+                            vertical: 16.h,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.r),
+                          ),
+                        ),
+                        onPressed: _proceed,
+                        child: Text(
+                          "Start Calculator",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16.sp,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                onPressed: _proceed,
-                child: const Text(
-                  "Start Calculator",
-                  style: TextStyle(color: Colors.white),
-                ),
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
